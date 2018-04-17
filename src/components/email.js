@@ -2,6 +2,7 @@ import React from 'react';
 import Sidebar from './sidebar';
 import SingleEmail from './single-email';
 import EmailList from './email-list';
+import {Route, Switch, Redirect} from 'react-router-dom';
 import './email.css';
 
 // 
@@ -11,8 +12,14 @@ export default function Email() {
         <div className="email">
             <Sidebar />
             <main>
-                <EmailList folderId="inbox" />
-                {/* <SingleEmail folderId="inbox" emailId="1" /> */}
+             <Switch>
+                <Redirect exact from='/' to='/inbox'/>
+                {/* <Route exact path='/inbox' component={EmailList}/> */}
+                {/* </Switch>
+                <Switch>           */}
+                    <Route exact path="/:folderId" component={EmailList} />
+                    <Route exact path='/:folderId/:emailId' component={SingleEmail}/>
+                </Switch>
             </main>
         </div>
     );
